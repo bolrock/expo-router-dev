@@ -1,19 +1,19 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, Stack } from "expo-router";
+import { useApplicationContext } from "../contexts/ApplicationContext";
+import Onboarding from "../screens/Onboarding";
 
 const Home = () => {
-    const [isOnboarded, setOnboarded] = useState(true);
+    const { isOnboarded, setOnboarded } = useApplicationContext();
 
-    if (isOnboarded)
-        return (
-            <View>
-                <Link href="/one">One</Link>
-                <Link href="/two">Two</Link>
-            </View>
-        );
+    if (!isOnboarded) return <Onboarding />;
 
-    return <Redirect href={"/(auth)/onboarding"} />;
+    return (
+        <View>
+            <Text>Home</Text>
+        </View>
+    );
 };
 
 export default Home;
